@@ -1,0 +1,44 @@
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+
+Form{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #cecece;
+}
+
+ul{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+}
+
+
+li{
+    width: 80%;
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    background-color: rgb(159, 159, 205);
+}
+
+div{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 33%;
+    color: white;
+}
+
+div>span{
+    color: black;
+}

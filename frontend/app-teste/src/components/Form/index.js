@@ -2,9 +2,14 @@ import Button from '../Button/index';
 import Input from '../Input/index';
 import React, { useEffect, useState } from 'react';
 import api from '../../Api';
+import './style.css';
 
-const Form = ({onSubmit}) => {
+const Form = () => {
     const [form, setForm] = useState({});
+
+    useEffect(() => {
+        setForm({});
+      }, [form]);
 
     const changeState = (e) => {
         const {name, value} = e.target;
@@ -19,14 +24,17 @@ const Form = ({onSubmit}) => {
         console.log(form);
     }
 
-    const handleClick = async (e) =>{
-        e.preventDefault();
 
+    const handleClick = async (e) => {
+        e.preventDefault();
+      
         api.post(`/jogadores`, form)
-        .then( res => {
+          .then(res => {
             console.log(res);
-        }).catch(err => console.log(err));
-    }
+          })
+          .catch(err => console.log(err));
+      }
+      
 
   return (
     <form method='POST' onSubmit={(e) => handleClick(e)}>

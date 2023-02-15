@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import api from '../Api';
 import Form from '../components/Form';
+import './style.css';
 
 
 const Home = () => {
     const [jogadores, setJogadores] = useState([]);
-
 
     useEffect( () => {
         api.get(`/jogadores`)
@@ -14,22 +14,35 @@ const Home = () => {
         }).catch(err => console.log(err));
     }, [jogadores])
 
+    const handleClickRemove = (id) =>{
+        api.delete(`/jogadores/${id}`)
+        .then( res => {
+            console.log(res);
+        }).catch(err => console.log(err));
+    }
+
     
     return(
-        <>
-            <div>Home</div>
+        <div className='content'>
             <Form  />
-
-            <ul  style={{display: "flex", flexDirection: "column", justifyContent: "center"} }>
-                 {jogadores.map(jogador => (
-                     <li  style={{listStyle: "none"}} key={jogador.id}>
-                         <p>Nome: {jogador.nome}</p>
-                         <p>Time: {jogador.time}</p>
-                         <p>Posição: {jogador.posicao}</p>
+            <ul>
+                 {jogadores.sort((a, b) => {
+                    const aId = parseInt(a._id.replace(/[^0-9]/g, ''));
+                    const bId = parseInt(b._id.replace(/[^0-9]/g, ''));
+                    return bId - aId;
+                })
+                 .map(jogador => (
+                     <li  style={{listStyle: "none"}} key={jogador._id}>
+                         <div>Nome <span>{jogador.nome}</span></div>
+                         <div>Time <span>{jogador.time}</span></div>
+                         <div>Posição <span>{jogador.posicao}</span> </div>
+                         <button onClick={() => handleClickRemove(jogador._id)}>
+                            Remover
+                        </button>
                      </li>
                  ))}
             </ul>
-        </>
+        </div>
         
     )
 }
